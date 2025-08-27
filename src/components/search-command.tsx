@@ -28,6 +28,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Link } from "react-router-dom"
 
 type SearchCommandProps = {
   className?: string;
@@ -100,10 +101,12 @@ export function SearchCommand({
             <CommandEmpty>No results found.</CommandEmpty>
 
             <CommandGroup heading="Suggestions">
+              <Link to="/home">
               <CommandItem onSelect={() => onSelect("calendar")}>
                 <Calendar className="mr-2 h-4 w-4" />
-                <span>Calendar</span>
+                <span>Markets</span>
               </CommandItem>
+              </Link>
               <CommandItem onSelect={() => onSelect("emoji")}>
                 <Smile className="mr-2 h-4 w-4" />
                 <span>Search Emoji</span>
@@ -122,11 +125,13 @@ export function SearchCommand({
                 <span>Profile</span>
                 <CommandShortcut>⌘P</CommandShortcut>
               </CommandItem>
+              <Link to="/wallet">
               <CommandItem onSelect={() => onSelect("billing")}>
                 <CreditCard className="mr-2 h-4 w-4" />
-                <span>Billing</span>
+                <span>Wallet</span>
                 <CommandShortcut>⌘B</CommandShortcut>
               </CommandItem>
+              </Link>
               <CommandItem onSelect={() => onSelect("settings")}>
                 <Settings className="mr-2 h-4 w-4" />
                 <span>Settings</span>

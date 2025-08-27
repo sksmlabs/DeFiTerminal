@@ -14,7 +14,7 @@ export function SiteHeader({ enableSidebar, title }: SiteHeaderProps) {
       <div className="flex w-full items-center justify-between px-4 lg:px-6">
         
         {/* LEFT */}
-        <div className="flex items-center gap-2">
+        <div className="flex-1 flex items-center gap-2">
           {enableSidebar && (
             <>  
               <SidebarTrigger className="-ml-1" />
@@ -35,7 +35,7 @@ export function SiteHeader({ enableSidebar, title }: SiteHeaderProps) {
         </div>
 
         {/* RIGHT */}
-        <div className="flex items-center gap-2">
+        <div className="flex-1 flex justify-end gap-2">
           <Button variant="ghost" asChild size="sm" className="hidden sm:flex">
             <a
               href="/"
