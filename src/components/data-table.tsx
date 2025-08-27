@@ -66,6 +66,9 @@ import {
 import {
   Tabs, TabsContent, TabsList, TabsTrigger,
 } from "@/components/ui/tabs"
+import { ButtonDropdown } from "./button-dropdown"
+import { chainItems } from "@/app/data/chains"
+import { protocolItems } from "@/app/data/protocols"
 
 // ---------- SCHEMA FOR STRATEGY ROWS ----------
 
@@ -284,6 +287,8 @@ export function DataTable({ data: initialData }: { data: Strategy[] }) {
         </TabsList>
 
         <div className="flex items-center gap-2">
+          <ButtonDropdown placeholder="All Chain" items={chainItems}/>
+          <ButtonDropdown placeholder="All Protocols" items={protocolItems}/>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm">
