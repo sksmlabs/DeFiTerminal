@@ -12,6 +12,8 @@ import {
 import { ButtonDropdown } from "@/components/button-dropdown"
 import { InfoPill } from "@/components/info-pill"
 import { assetItems } from "../data/assets"
+import { IconArrowLeft } from "@tabler/icons-react"
+import { Link } from "react-router-dom"
 
 
 function MarketContent() {
@@ -103,9 +105,18 @@ export default function Page() {
 
     return (
         <>
-        <div className="bg-muted flex min-h-svh flex-col items-center p-6 md:p-10">
+        <div className="flex min-h-svh flex-col items-center p-6 md:p-10">
             <div className="w-full max-w-sm md:max-w-5xl">
                 <div className={cn("flex flex-col gap-6")} >
+                <div className="flex justify-left">
+                <Button asChild variant="outline" size="sm">
+                    <Link to="/home">
+                        <IconArrowLeft className="mr-2 h-4 w-4" />
+                        Markets
+                    </Link>
+                </Button>
+                </div>
+                
                 <Card className="overflow-hidden p-0">
                     <CardContent className="grid p-0 md:grid-cols-2">
                     <MarketContent />

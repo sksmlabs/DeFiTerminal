@@ -1,13 +1,23 @@
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
-import { DataTable } from "@/components/data-table"
+import { DataTable, type Strategy } from "@/components/data-table"
 import { SectionCards } from "@/components/section-cards"
-import { SiteHeader } from "@/components/site-header"
+
 import {
   SidebarInset,
   SidebarProvider,
 } from "@/components/ui/sidebar"
 
 import data from "./data.json"
+
+// give each row a stable id for DnD
+const strategies: Strategy[] = (data as Omit<Strategy, "id">[]).map((d, i) => ({
+  id: i + 1,
+  ...d,
+}))
+
+function StrategiesTablePage() {
+  return <DataTable data={strategies} />
+}
 
 
 function Hero() {
@@ -49,7 +59,7 @@ export default function Page() {
               <div className="px-4 lg:px-6">
                 <ChartAreaInteractive />
               </div>
-              <DataTable data={data} />
+              <StrategiesTablePage />
             </div>
           </div>
         </div>
