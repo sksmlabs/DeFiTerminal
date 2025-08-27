@@ -273,14 +273,14 @@ export function DataTable({ data: initialData }: { data: Strategy[] }) {
             <SelectValue placeholder="Select a view" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="outline">Outline</SelectItem>
-            <SelectItem value="past-performance">Past Performance</SelectItem>
+            <SelectItem value="outline">All Markets</SelectItem>
+            <SelectItem value="past-performance">Best Performing</SelectItem>
           </SelectContent>
         </Select>
 
         <TabsList className="hidden @4xl/main:flex">
-          <TabsTrigger value="outline">Outline</TabsTrigger>
-          <TabsTrigger value="past-performance">Past Performance</TabsTrigger>
+          <TabsTrigger value="outline">All Markets</TabsTrigger>
+          <TabsTrigger value="past-performance">Best Performing</TabsTrigger>
         </TabsList>
 
         <div className="flex items-center gap-2">
