@@ -9,7 +9,7 @@ interface  SiteHeaderProps {
 
 export function SiteHeader({enableSidebar, title}: SiteHeaderProps) {
   return (
-    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+    <header className="fixed top-0 left-0 right-0 z-50 flex h-[--header-height] shrink-0 items-center gap-2 border-b bg-background transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-[--header-height] py-2">
       <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
         {enableSidebar == true && (
           <>  
@@ -24,12 +24,11 @@ export function SiteHeader({enableSidebar, title}: SiteHeaderProps) {
         <div className="ml-auto flex items-center gap-2">
           <Button variant="ghost" asChild size="sm" className="hidden sm:flex">
             <a
-              href="https://github.com/shadcn-ui/ui/tree/main/apps/v4/app/(examples)/dashboard"
+              href="/"
               rel="noopener noreferrer"
-              target="_blank"
               className="dark:text-foreground"
             >
-              GitHub
+              Home
             </a>
           </Button>
         </div>
