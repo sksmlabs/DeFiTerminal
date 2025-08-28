@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import { BalancePill } from "@/components/balance-pill";
 import { SwapBox } from "@/components/swap-box";
 import { Card, CardContent } from "@/components/ui/card";
@@ -24,12 +25,37 @@ function FundsContent() {
   );
 }
 
-function HistoryContent() {
+function SwapContent() {
   return <SwapBox />;
 }
 
 export default function Page() {
-  const [tab, setTab] = React.useState<"funds" | "history">("funds");
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    // 1) local, controlled tabs state
+    const [tab, setTab] = React.useState<"funds" | "swap">("funds");
+
+    // 2) derive from URL and sync INTO state
+    React.useEffect(() => {
+        const qp = (searchParams.get("view") || "").toLowerCase();
+        const urlTab: "funds" | "swap" = qp === "swap" ? "swap" : "funds";
+        // only update if different to avoid useless re-renders
+        setTab((curr) => (curr !== urlTab ? urlTab : curr));
+    }, [searchParams]);
+
+    // 3) when user clicks tab, update BOTH state and URL (replace to avoid stacking history)
+    const onTabChange = (val: string) => {
+        const next = (val === "swap" ? "swap" : "funds") as "funds" | "swap";
+        setTab(next);
+
+        // preserve other query params
+        const params = new URLSearchParams(location.search);
+        params.set("view", next);
+        navigate({ search: params.toString() }, { replace: true });
+    };
+
 
   return (
     <div className="flex min-h-svh flex-col items-center p-6 md:p-10">
@@ -42,7 +68,7 @@ export default function Page() {
             <small>Manage your funds across supported networks</small>
 
             {/* Controlled tabs */}
-            <Tabs value={tab} onValueChange={(v) => setTab(v as "funds" | "history")} className="mt-6">
+            <Tabs value={tab} onValueChange={onTabChange} className="mt-6">
               <TabsList className="w-full">
                 <TabsTrigger value="funds" className="flex-1">Funds</TabsTrigger>
                 <TabsTrigger value="swap" className="flex-1">Swap</TabsTrigger>
@@ -53,7 +79,7 @@ export default function Page() {
               </TabsContent>
 
               <TabsContent value="swap">
-                <HistoryContent />
+                <SwapContent />
               </TabsContent>
             </Tabs>
           </CardContent>

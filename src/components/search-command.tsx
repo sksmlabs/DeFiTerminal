@@ -4,9 +4,9 @@ import * as React from "react";
 import {
   Calculator,
   Calendar,
+  Coins,
   CreditCard,
   Search,
-  Settings,
   Smile,
   User,
 } from "lucide-react";
@@ -125,18 +125,20 @@ export function SearchCommand({
                 <span>Profile</span>
                 <CommandShortcut>⌘P</CommandShortcut>
               </CommandItem>
-              <Link to="/wallet">
+              <Link to="/wallet?view=funds">
               <CommandItem onSelect={() => onSelect("billing")}>
                 <CreditCard className="mr-2 h-4 w-4" />
                 <span>Wallet</span>
-                <CommandShortcut>⌘B</CommandShortcut>
+                <CommandShortcut>⌘W</CommandShortcut>
               </CommandItem>
               </Link>
+              <Link to="/wallet?view=swap">
               <CommandItem onSelect={() => onSelect("settings")}>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
+                <Coins className="mr-2 h-4 w-4" />
+                <span>Swap</span>
                 <CommandShortcut>⌘S</CommandShortcut>
               </CommandItem>
+              </Link>
             </CommandGroup>
           </CommandList>
         </Command>
