@@ -45,6 +45,7 @@ export function SiteHeader({ enableSidebar, title }: SiteHeaderProps) {
               Home
             </a>
           </Button>
+          <appkit-button />
         </div>
       </div>
     </header>
