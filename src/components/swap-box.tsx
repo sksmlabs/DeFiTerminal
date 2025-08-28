@@ -42,7 +42,7 @@ export function SwapBox() {
         </div>
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <Input type="number" placeholder="0" />
+            <Input type="number" placeholder="0" className="focus:bg-muted" />
             <span className="text-xs text-muted-foreground">$0</span>
           </div>
           <div className="flex flex-col items-end">
@@ -83,10 +83,10 @@ export function SwapBox() {
       </div>
 
       {/* BUY section */}
-      <div className="rounded-xl border bg-muted/60 p-4 space-y-2">
+      <div className="rounded-xl border bg-muted/40 p-4 space-y-2">
         <div className="text-sm text-muted-foreground">Buy</div>
         <div className="flex items-center justify-between gap-2">
-          <Input type="number" placeholder="0" />
+          <Input type="number" placeholder="0" className="focus:bg-muted" />
           <Button
             ref={buyBtnRef}
             variant={buyToken ? "outline" : "default"}

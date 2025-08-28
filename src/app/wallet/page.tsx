@@ -6,6 +6,7 @@ import { BalancePill } from "@/components/balance-pill";
 import { SwapBox } from "@/components/swap-box";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import SendBox from "@/components/send-box";
 
 const fundsItems = [
   { title: "WETH", subtitle: "100 WETH" },
@@ -29,33 +30,55 @@ function SwapContent() {
   return <SwapBox />;
 }
 
+function SendContent() {
+  return (
+    <SendBox
+      chain={{ name: "Ethereum" }}
+      balancePrimary="0"
+      balanceFiat="$0"
+      wallets={[
+        {
+          name: "kidgoku.uni.eth",
+          address: "0x4607BB90B3eA9F3F8cC...b920AD",
+          avatarUrl: "https://i.pravatar.cc/100?img=12",
+          badge: { label: "uni" },
+        },
+      ]}
+    />
+  );
+}
+
+type Tab = "funds" | "swap" | "send";
+
 export default function Page() {
-    const [searchParams] = useSearchParams();
-    const navigate = useNavigate();
-    const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    // 1) local, controlled tabs state
-    const [tab, setTab] = React.useState<"funds" | "swap">("funds");
+  // Local, controlled state
+  const [tab, setTab] = React.useState<Tab>("funds");
 
-    // 2) derive from URL and sync INTO state
-    React.useEffect(() => {
-        const qp = (searchParams.get("view") || "").toLowerCase();
-        const urlTab: "funds" | "swap" = qp === "swap" ? "swap" : "funds";
-        // only update if different to avoid useless re-renders
-        setTab((curr) => (curr !== urlTab ? urlTab : curr));
-    }, [searchParams]);
+  // Sync FROM URL -> state
+  React.useEffect(() => {
+    const qp = (searchParams.get("view") || "").toLowerCase();
+    const urlTab: Tab =
+      qp === "swap" ? "swap" : qp === "send" ? "send" : "funds";
 
-    // 3) when user clicks tab, update BOTH state and URL (replace to avoid stacking history)
-    const onTabChange = (val: string) => {
-        const next = (val === "swap" ? "swap" : "funds") as "funds" | "swap";
-        setTab(next);
+    setTab((curr) => (curr !== urlTab ? urlTab : curr));
+  }, [searchParams]);
 
-        // preserve other query params
-        const params = new URLSearchParams(location.search);
-        params.set("view", next);
-        navigate({ search: params.toString() }, { replace: true });
-    };
+  // When user changes tabs: update state + URL (preserving other params)
+  const onTabChange = (val: string) => {
+    const next: Tab = (["funds", "swap", "send"].includes(val)
+      ? (val as Tab)
+      : "funds");
 
+    setTab(next);
+
+    const params = new URLSearchParams(location.search);
+    params.set("view", next);
+    navigate({ search: params.toString() }, { replace: true });
+  };
 
   return (
     <div className="flex min-h-svh flex-col items-center p-6 md:p-10">
@@ -67,11 +90,11 @@ export default function Page() {
             </h3>
             <small>Manage your funds across supported networks</small>
 
-            {/* Controlled tabs */}
             <Tabs value={tab} onValueChange={onTabChange} className="mt-6">
               <TabsList className="w-full">
                 <TabsTrigger value="funds" className="flex-1">Funds</TabsTrigger>
                 <TabsTrigger value="swap" className="flex-1">Swap</TabsTrigger>
+                <TabsTrigger value="send" className="flex-1">Send</TabsTrigger>
               </TabsList>
 
               <TabsContent value="funds">
@@ -80,6 +103,10 @@ export default function Page() {
 
               <TabsContent value="swap">
                 <SwapContent />
+              </TabsContent>
+
+              <TabsContent value="send">
+                <SendContent />
               </TabsContent>
             </Tabs>
           </CardContent>
