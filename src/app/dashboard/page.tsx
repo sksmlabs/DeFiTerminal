@@ -27,7 +27,7 @@ function Hero() {
       <div className="absolute top-0 left-0 right-0 h-40 bg-[url('/wave-lines.svg')] bg-repeat-x bg-top opacity-40" />
 
       {/* Content */}
-      <div className="flex flex-col relative z-10 px-6">
+      <div className="flex flex-col relative px-6">
         <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-4 inline-block px-4 py-1">
           Earn on DeFi Terminal
         </h1>
